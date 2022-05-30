@@ -79,6 +79,9 @@ const (
 	updateSkipOp
 	// Update Stream
 	updateStreamOp
+	// For updating information on pending pull requests.
+	addPendingRequest
+	removePendingRequest
 )
 
 // raftGroups are controlled by the metagroup controller.
@@ -1236,6 +1239,10 @@ func (js *jetStream) applyMetaEntries(entries []*Entry, isRecovering bool) (bool
 					js.setStreamAssignmentRecovering(sa)
 				}
 				js.processUpdateStreamAssignment(sa)
+			case addPendingRequest:
+				js.srv.Debugf("Unsupport op type addPendingRequest")
+			case removePendingRequest:
+				js.srv.Debugf("Unsupport op type removePendingRequest")
 			default:
 				panic("JetStream Cluster Unknown meta entry op type")
 			}
